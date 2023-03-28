@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+    <title>Interface</title>
+    <link href="/static/interface.css" rel="stylesheet">
+    <link href="/static/global.css" rel="stylesheet">
+</head>
+<body>
+    <img class="central_blue" alt="" src="/static/images/ellipse-6.svg">
+    <div class = 'desktop'>
+        <header class="header">
+        <img src="https://bakai.kg/static/img/bakai_logo_light-theme.svg" alt="Bakai Logo" width="400" height="100">
+        <form action="/sign_out" method="post">
+        <input type = 'submit' value = 'Выйти' class="sign_out_button">
+        </form>
+        </header>
+        <div class = "section">ЖУРНАЛ УЧЕТА БАНКОВСКИХ ГАРАНТИЙ</div>
+        <form action="/filter", method="get">
+            <div class="filters">
+            <input class="input" type="text" name="serial_number" placeholder="Серийный номер">
+            <input class="input" type="text" name="applicant" placeholder="Заявитель">
+            <input class="input" type="text" name="agreement_number" placeholder="Номер договора">
+            <input class="input" type="text" name="amount" placeholder="Сумма">
+            <input class="input" type="text" name="currency" placeholder="Валюта">
+            <input class="input" type="text" name="start_date" placeholder="Дата начала">
+            <input class="input" type="text" name="expiration_date" placeholder="Дата окончания">
+            <input class="input" type="text" name="curator" placeholder="Куратор">
+            <input class="input" type="text" name="status" placeholder="Статус">
+            <button class="btn btn-primary" id="filter-btn">Применить</button>
+            </div>
+        </form>
+        <table>
+        <thead>
+            <tr>
+            <th>№ п/п</th>
+            <th>Серийный номер</th>
+            <th>Заявитель</th>
+            <th>Номер договора</th>
+            <th>Сумма</th>
+            <th>Валюта</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+            <th>Куратор</th>
+            <th>Статус</th>
+            <th class = 'update__button'></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in table %}
+            <tr>
+            <form action="/update" method="post">
+                <td class="id-column"><input type="text" name="id" value="{{ log[0] }}" readonly="readonly"></td>
+                <td><input type="text" name="column1" value="{{  log[1] }}" readonly="readonly"></td>
+                <td><input type="text" name="column2" value="{{  log[2] }}" readonly="readonly"></td>
+                <td><input type="text" name="column3" value="{{  log[3] }}" readonly="readonly"></td>
+                <td><input type="text" name="column4" value="{{  log[4] }}" readonly="readonly"></td>
+                <td><input type="text" name="column5" value="{{  log[5] }}" readonly="readonly"></td>
+                <td><input type="text" name="column6" value="{{  log[6] }}" readonly="readonly"></td>
+                <td><input type="text" name="column7" value="{{  log[7] }}" readonly="readonly"></td>
+                <td><input type="text" name="column8" value="{{  log[8] }}" readonly="readonly"></td>
+                <td><input type="text" name="column9" value="{{  log[9] }}" readonly="readonly"></td>
+            </form>
+            </tr>      
+            {% endfor %}
+        </tbody>
+        </table>
+        <div class="pagination">
+            {% if pagination.has_prev %}
+              <a class="page-link" href="{{ url_for('success', page=pagination.prev_num) }}">&laquo;</a>
+            {% else %}
+              <span class="page-link disabled">&laquo;</span>
+            {% endif %}
+          
+            {% for page_num in pagination.pages %}
+              {% if page_num %}
+                {% if pagination.page == page_num %}
+                  <span class="page-link current">{{ page_num }}</span>
+                {% else %}
+                  <a class="page-link" href="{{ url_for('success', page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+              {% else %}
+                <span class="page-link disabled">...</span>
+              {% endif %}
+            {% endfor %}
+          
+            {% if pagination.has_next %}
+              <a class="page-link" href="{{ url_for('success', page=pagination.next_num) }}">&raquo;</a>
+            {% else %}
+              <span class="page-link disabled">&raquo;</span>
+            {% endif %}
+        </div>
+        <br>
+        <hr class="footer-line">
+        <div class="footer-text">
+            <span>ОАО “БАКАЙ БАНК” Кыргызстан, г. Бишкек, ул. Мичурина, 56</span>
+            <br><br>
+            <span>© 2023 BakaiBank. Все права защищены</span>
+        </div>   
+    </div>
+    <img class="bot_blue" alt="" src="/static/images/ellipse-5.svg">
+</body>
+</html>
+<script>
+    $(document).ready(function() {
+        $('#filter-btn').click(function() {
+            $.ajax({
+                url: '/filter',
+                type: 'GET',
+                data: $('input[type="text"]').serialize(),
+                success: function(response) {
+                    $('tbody').html(response);
+                }
+            });
+        });
+    });
+</script>
