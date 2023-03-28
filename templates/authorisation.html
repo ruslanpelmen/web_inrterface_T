@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width"/>
+  <title>Authorisation</title>
+  <link href="/static/authorisation.css" rel="stylesheet">
+  <link href="/static/global.css" rel="stylesheet">
+</head>
+<body>
+  {% if error %}
+  <p>Incorrect username or password</p>
+  {% endif %}
+  <img class="top_grey" alt="" src="/static/images/ellipse-1.svg" />
+  <img class="top_blue" alt="" src="/static/images/ellipse-2.svg"/>
+  <img class="bot_blue" alt="" src="/static/images/ellipse-3.svg" />
+  <img class="bot_grey" alt="" src="/static/images/ellipse-4.svg"/>
+  <div class="desktop">
+    <form action="/sign_in" method="post">
+      <b class="b">ВОЙТИ</b><br>
+      <div class="input-container">
+        <input type="text" name="username" placeholder="Имя пользователя" class="div_username">
+      </div>
+      <div class="input-container">
+        <input type="password" name="password" placeholder="Пароль" class="div_password">
+      </div>
+      <div class="input-container">
+        <input type="submit" value="Войти" class="submit_button">
+      </div>
+    </form>
+  </div>
+</body>
+</html>
