@@ -1,0 +1,27 @@
+:root {
+  /* fonts */
+  --font-inter: "Segoe UI";
+  --font-hind-kochi: "Hind Kochi";
+
+  /* font sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-darkslateblue-100: #0157a3;
+  --color-darkslateblue-200: #2e2760;
+  --color-gray-100: rgba(255, 255, 255, 0);
+  --color-gray-200: rgba(0, 0, 0, 0.08);
+  --color-gray-300: rgba(0, 0, 0, 0.25);
+  --color-black: #000;
+  --color-midnightblue: #042b8d;
+
+  /* border radiuses */
+  --br-sm: 12px;
+  --br-md: 41px;
+}
